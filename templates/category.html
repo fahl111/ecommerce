@@ -1,0 +1,37 @@
+<! DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    <img src="{% static 'images/123.png' %}" height="1000px" width="100%">
+</div>
+
+<div class="container-fluid mt-3" style="margin-bottom:100px; b">
+    <h3 class="text-center fw-f=bold">Our Range Of Collections</h3>
+    <p style="text-align:justify;line-height:2;">With over three decades of experience in the sales and distribution of glazed and cladding tiles, kitchen cabinets and units and bathroom fittings, the Kurikkal Group commenced operations in the district of Malappuram, in Kerala, before gradually expanding its presence to cover other locations. The Group has steadily maintained market leadership by focusing on uncompromising service quality and by adhering to the core values and principles that defined the vision of the founder.</p>
+</div>
+
+{% endblock %}
+
+{% block category %}
+
+<div class="container-fluid">
+    <h1>COLLECTIONS</h1>
+    <div class="row">
+        {% for i in c %}
+        <div class="col-md-4" style="max-width: 330px;">
+            <div class="card">
+                <img src="{{ i.image.url }}"  class="card-img-top" style="width:auto; height:250px; object-fit: fill;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p class="card-text">Description: {{ i.desc }}</p>
+                    <a href="{% url 'shop:product' i.name %}" class="btn btn-success d-block mx-auto">Products</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

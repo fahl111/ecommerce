@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<center>
+    <div class="container mt-5" style="margin-bottom :100px;">
+        <div class="row  justify-content-center">
+            <h1>Shopping Cart</h1>
+            <br>
+
+            <div class="col-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="5">Cart-Items</th>
+                    </tr>
+                    {% for i in c %}
+                        <tr>
+                            <td>
+                                <img src="{{ i.product.image.url }}" height="200px" width="200px">
+
+                            </td>
+                            <td>
+                                <p>{{i.product.name}}</p>
+                            </td>
+                            <td>
+                                <h6>Productid:{{i.product.id}}</h6>
+                                <h6>Unit Price:{{i.product.price}}</h6>
+                                <h6>Quantity: {{i.quantity}}*{{i.product.price}}</h6>
+                                <h6>stock: {{i.product.stock}}-{{i.quantity}}</h6>
+
+
+                            </td>
+                            <td>Subtotal:{{i.subtotal}}</td>
+                                                <td>
+                                                    {% if i.quantity < i.product.stock %}
+                                <a href="{% url 'cart:cart' i.product.name %}"><i class="fa-solid fa-circle-plus"></i></a>
+                                <a href="{% url 'cart:decrement_cart' i.product.name %}"><i class="fa-solid fa-circle-minus"></i></a>
+                                <a href="{% url 'cart:remove_from_cart' i.product.name %}"><i class="fa-solid fa-trash"></i></a>
+                                {% else %}
+                                                                                    <a href="{% url 'cart:decrement_cart' i.product.name %}"><i class="fa-solid fa-circle-minus"></i></a>
+                                <a href="{% url 'cart:remove_from_cart' i.product.name %}"><i class="fa-solid fa-trash"></i></a>
+                                                    {% endif %}
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+                </table>
+            </div></div>
+            <div class="col-4">
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="5">Check Out</th>
+                    </tr>
+                    <tr>Total = {{total}}</tr>
+                </table>
+                <a href="{% url 'cart:orderform' %}" class="btn btn-danger" >Place Order</a>
+                <a href="{% url 'shop:allcat' %}" class="btn btn-danger">Continue Shopping</a>
+
+        </div>
+    </div>
+</center>
+{% endblock %}
